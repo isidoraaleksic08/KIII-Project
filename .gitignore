@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+/backend/target/
+/backend/.idea/
+/backend/.mvn/
+/backend/.classpath
+/backend/.project
+/frontend/node_modules/
+/frontend/build/
+/frontend/.idea/
