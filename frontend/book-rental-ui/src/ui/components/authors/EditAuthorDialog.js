@@ -24,7 +24,7 @@ const EditAuthorDialog = ({ open, onClose, author, onEdit }) => {
         if (open) {
             // Ако е отворен дијалогот, барај земји преку API
             setLoading(true);  // Почни со вчитување
-            axios.get('http://localhost:9090/api/country')
+            axios.get('http://localhost:9095/api/country')
                 .then((response) => {
                     setCountries(response.data);
                 })

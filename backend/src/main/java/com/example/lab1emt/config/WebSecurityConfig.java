@@ -16,7 +16,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
-@Profile("test")
+//@Profile("test")
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -30,50 +30,38 @@ public class WebSecurityConfig {
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.setAllowedOrigins(List.of("*"));
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        corsConfiguration.setAllowedHeaders(List.of("*"));
+        CorsConfiguration cors = new CorsConfiguration();
+        cors.setAllowedOrigins(List.of("http://localhost:3000"));
+        cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+        cors.setAllowedHeaders(List.of("*"));
+        cors.setAllowCredentials(true); // важно за login + cookies
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
+        source.registerCorsConfiguration("/**", cors);
         return source;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()));
-//                .authorizeHttpRequests(auth -> auth
-//                    .requestMatchers("/api/**").permitAll() // дозволи го целиот API за сега
-//                    .anyRequest().authenticated()
-//            );
-//                .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers("/api/author/**", "/api/book/**", "/api/categories/**", "/api/user/login", "/api/user/register", "/api/country/**")
-//                        .permitAll()
-//                        .requestMatchers("/api/wishlist/**")
-//                        .hasRole("USER")
-//                        .anyRequest().authenticated())
-//                .formLogin(form -> form
-//                        .loginProcessingUrl("/api/user/login")
-//                        .permitAll()
-//                        .failureUrl("/api/user/login?error=BadCredentials")
-//                        .defaultSuccessUrl("/swagger-ui/index.html", true))
-//                .logout(logout -> logout
-//                        .logoutUrl("/api/user/logout")  // URL за излогирање
-//                        .clearAuthentication(true)
-//                        .invalidateHttpSession(true)
-//                        .deleteCookies("JSESSIONID")
-//                        .logoutSuccessUrl("/api/user/login"))
-//                .exceptionHandling(ex -> ex
-//                        .accessDeniedPage("/access_denied"));
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .anyRequest().permitAll()
+                )
+                .formLogin(AbstractHttpConfigurer::disable)
+                .logout(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
 
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.authenticationProvider(authenticationProvider);
-        return authenticationManagerBuilder.build();
+        AuthenticationManagerBuilder amb = http.getSharedObject(AuthenticationManagerBuilder.class);
+        amb.authenticationProvider(authenticationProvider);
+        return amb.build();
     }
 }

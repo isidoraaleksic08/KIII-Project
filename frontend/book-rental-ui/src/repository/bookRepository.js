@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BOOKS_API_URL = "http://localhost:9090/api/book";
+const BOOKS_API_URL = "http://localhost:9095/api/book";
 
 const bookRepository = {
     findAll: () => axios.get(BOOKS_API_URL),

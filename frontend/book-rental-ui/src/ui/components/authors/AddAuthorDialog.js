@@ -21,7 +21,7 @@ const AddAuthorDialog = ({ open, onClose, onAdd }) => {
 
     useEffect(() => {
         if (open) {
-            axios.get('http://localhost:9090/api/country')  // Endpoint for countries
+            axios.get('http://localhost:9095/api/country')  // Endpoint for countries
                 .then((response) => {
                     setCountries(response.data);
                 })

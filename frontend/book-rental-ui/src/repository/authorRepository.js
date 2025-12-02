@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const AUTHORS_API_URL = "http://localhost:9090/api/author";
+const AUTHORS_API_URL = "http://localhost:9095/api/author";
 
 const authorRepository = {
     findAll: () => axios.get(AUTHORS_API_URL),

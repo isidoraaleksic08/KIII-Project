@@ -1,3 +1,5 @@
+
+
 services:
   db:
     image: postgres:17.4
@@ -6,11 +8,32 @@ services:
       POSTGRES_USER: Lab1-EMT
       POSTGRES_PASSWORD: Lab1-EMT
       POSTGRES_DB: book_rental
+    ports:
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./db-init/init.sql:/docker-entrypoint-initdb.d/init.sql
-#      - ./views.sql:/docker-entrypoint-initdb.d/views.sql
+
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
-      - 5433:5432
+      - "9095:9090"
+    depends_on:
+      - db
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend/book-rental-ui
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
+    restart: always
+
 volumes:
   pgdata:

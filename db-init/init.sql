@@ -69,4 +69,5 @@ INSERT INTO books (title, category_id, author_id, copies, publish_date) VALUES
 INSERT INTO users (username, password, first_name, last_name, role) VALUES
 
                                                                         ('at', 'passwordHashForAt', 'Ana', 'Todorovska', 'ROLE_Librarian'),
-                                                                        ('user', 'passwordHashForUser', 'User', 'User', 'ROLE_USER');
+                                                                        ('user', 'passwordHashForUser', 'User', 'User', 'ROLE_USER')
+                                                                                            ;

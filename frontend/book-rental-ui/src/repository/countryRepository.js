@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const COUNTRIES_API_URL = "http://localhost:9090/api/country";
+const COUNTRIES_API_URL = "http://localhost:9095/api/country";
 
 const countryRepository = {
     findAll: () => axios.get(COUNTRIES_API_URL),
