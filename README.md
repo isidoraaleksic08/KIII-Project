@@ -5,4 +5,7 @@ This is a project, which includes a book management application from EMT course 
 - **frontend/** - React application for the user interface
 - **db-init/** - SQL scripts for database creation and initialization
 ## The application is fully dockerized and can be started using Docker or Docker Compose.
+## CI/CD
+The project contains a GitHub Actions workflow that automatically builds and uploads Docker images for the backend and frontend.
+
 

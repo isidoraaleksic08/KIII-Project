@@ -40,3 +40,4 @@ jobs:
 
       - name: Push frontend image
         run: docker push isidoraaleksicc/kiii-frontend:latest
+
