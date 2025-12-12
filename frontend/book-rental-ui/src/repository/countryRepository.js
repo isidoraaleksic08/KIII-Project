@@ -1,18 +1,12 @@
-import axios from 'axios';
+import axiosInstance from "../axios/axios";
 
-const COUNTRIES_API_URL = "http://localhost:9095/api/country";
+const COUNTRIES_API_URL = "/country";
 
 const countryRepository = {
-    findAll: () => axios.get(COUNTRIES_API_URL),
-
-
-    add: (countryData) => axios.post(`${COUNTRIES_API_URL}/add`, countryData),
-
-
-    edit: (id, countryData) => axios.put(`${COUNTRIES_API_URL}/edit/${id}`, countryData),
-
-
-    delete: (id) => axios.delete(`${COUNTRIES_API_URL}/delete/${id}`)
+    findAll: () => axiosInstance.get(COUNTRIES_API_URL),
+    add: (countryData) => axiosInstance.post(`${COUNTRIES_API_URL}/add`, countryData),
+    edit: (id, countryData) => axiosInstance.put(`${COUNTRIES_API_URL}/edit/${id}`, countryData),
+    delete: (id) => axiosInstance.delete(`${COUNTRIES_API_URL}/delete/${id}`)
 };
 
 export default countryRepository;

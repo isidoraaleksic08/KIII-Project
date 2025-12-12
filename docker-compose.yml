@@ -1,5 +1,3 @@
-
-
 services:
   db:
     image: postgres:17.4
@@ -30,7 +28,7 @@ services:
       context: ./frontend/book-rental-ui
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - app
     restart: always

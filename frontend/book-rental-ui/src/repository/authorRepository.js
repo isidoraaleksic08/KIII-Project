@@ -1,18 +1,12 @@
-import axios from 'axios';
+import axiosInstance from "../axios/axios";
 
-const AUTHORS_API_URL = "http://localhost:9095/api/author";
+const AUTHORS_API_URL = "/author";
 
 const authorRepository = {
-    findAll: () => axios.get(AUTHORS_API_URL),
-
-
-    add: (author) => axios.post(`${AUTHORS_API_URL}/add`, author),
-
-
-    edit: (id, author) => axios.put(`${AUTHORS_API_URL}/edit/${id}`, author),
-
-
-    delete: (id) => axios.delete(`${AUTHORS_API_URL}/delete/${id}`)
+    findAll: () => axiosInstance.get(AUTHORS_API_URL),
+    add: (author) => axiosInstance.post(`${AUTHORS_API_URL}/add`, author),
+    edit: (id, author) => axiosInstance.put(`${AUTHORS_API_URL}/edit/${id}`, author),
+    delete: (id) => axiosInstance.delete(`${AUTHORS_API_URL}/delete/${id}`)
 };
 
 export default authorRepository;
