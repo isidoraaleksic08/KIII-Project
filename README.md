@@ -17,5 +17,5 @@ The Kubernetes setup includes:
 - Ingress for routing traffic to frontend (/) and backend (/api)
 
 All manifests are located in the k8s/ directory and can be applied with:
-- kubectl apply -f k8s/ingress.yaml
+- kubectl apply -f k8s/
 
